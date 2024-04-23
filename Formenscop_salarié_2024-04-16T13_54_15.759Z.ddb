@@ -1,0 +1,379 @@
+{
+  "author": "Unnamed",
+  "title": "Formenscop/salarié",
+  "date": "2024-04-16T13:54:26.686Z",
+  "tables": [
+    {
+      "id": 0,
+      "name": "Compte",
+      "x": 9.105126250000012,
+      "y": 480,
+      "fields": [
+        {
+          "name": "id",
+          "type": "INT",
+          "default": "",
+          "check": "",
+          "primary": true,
+          "unique": true,
+          "notNull": true,
+          "increment": true,
+          "comment": "",
+          "id": 0
+        }
+      ],
+      "comment": "",
+      "indices": [],
+      "color": "#175e7a",
+      "key": 1713273044402
+    },
+    {
+      "id": 1,
+      "name": "Coordinateur",
+      "x": 474.552563125,
+      "y": 477.7237184375,
+      "fields": [
+        {
+          "name": "CompteID",
+          "type": "INT",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": "",
+          "id": 0
+        }
+      ],
+      "comment": "",
+      "indices": [],
+      "color": "#175e7a",
+      "key": 1713273095028
+    },
+    {
+      "id": 2,
+      "name": "Accompagnateur",
+      "x": 473,
+      "y": 309,
+      "fields": [
+        {
+          "name": "CompteID",
+          "type": "INT",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": "",
+          "id": 0
+        }
+      ],
+      "comment": "",
+      "indices": [],
+      "color": "#175e7a",
+      "key": 1713273169459
+    },
+    {
+      "id": 3,
+      "name": "Accompagnement",
+      "x": 790,
+      "y": 149,
+      "fields": [
+        {
+          "name": "id",
+          "type": "INT",
+          "default": "",
+          "check": "",
+          "primary": true,
+          "unique": false,
+          "notNull": true,
+          "increment": false,
+          "comment": "",
+          "id": 0
+        }
+      ],
+      "comment": "",
+      "indices": [],
+      "color": "#175e7a",
+      "key": 1713273267158
+    },
+    {
+      "id": 4,
+      "name": "Congés",
+      "x": 1190.898496875,
+      "y": 477.60752406250003,
+      "fields": [
+        {
+          "name": "CompteID",
+          "type": "INT",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": "",
+          "id": 0
+        },
+        {
+          "name": "Date_Début",
+          "type": "DATE",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": "",
+          "id": 1,
+          "size": "",
+          "values": []
+        },
+        {
+          "name": "Date_Fin",
+          "type": "DATE",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": "",
+          "id": 2,
+          "size": "",
+          "values": []
+        },
+        {
+          "name": "Valid",
+          "type": "BOOLEAN",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": "",
+          "id": 3,
+          "size": "",
+          "values": []
+        }
+      ],
+      "comment": "",
+      "indices": [],
+      "color": "#175e7a",
+      "key": 1713273585176
+    },
+    {
+      "id": 5,
+      "name": "Formateur",
+      "x": 478.7333850000001,
+      "y": 739.4883456250001,
+      "fields": [
+        {
+          "name": "id",
+          "type": "INT",
+          "default": "",
+          "check": "",
+          "primary": true,
+          "unique": true,
+          "notNull": true,
+          "increment": true,
+          "comment": "",
+          "id": 0
+        },
+        {
+          "name": "CompteID",
+          "type": "INT",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": "",
+          "id": 1
+        },
+        {
+          "name": "FormationID",
+          "type": "INT",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": "",
+          "id": 2
+        },
+        {
+          "name": "CoordinateurID",
+          "type": "INT",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": "",
+          "id": 3
+        }
+      ],
+      "comment": "",
+      "indices": [],
+      "color": "#175e7a",
+      "key": 1713273839396
+    },
+    {
+      "id": 6,
+      "name": "CF Formation",
+      "x": 1012.0367521875002,
+      "y": 815.7005875,
+      "fields": [
+        {
+          "name": "id",
+          "type": "INT",
+          "default": "",
+          "check": "",
+          "primary": true,
+          "unique": true,
+          "notNull": true,
+          "increment": true,
+          "comment": "",
+          "id": 0
+        }
+      ],
+      "comment": "",
+      "indices": [],
+      "color": "#175e7a",
+      "key": 1713273960429
+    }
+  ],
+  "relationships": [
+    {
+      "startTableId": 0,
+      "startFieldId": 0,
+      "endTableId": 1,
+      "endFieldId": 0,
+      "cardinality": "One to many",
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "name": "Compte_id_fk",
+      "id": 0
+    },
+    {
+      "startTableId": 2,
+      "startFieldId": 0,
+      "endTableId": 0,
+      "endFieldId": 0,
+      "cardinality": "Many to one",
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "name": "Formateur_CompteID_fk",
+      "id": 1
+    },
+    {
+      "startTableId": 3,
+      "startFieldId": 0,
+      "endTableId": 2,
+      "endFieldId": 0,
+      "cardinality": "Many to one",
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "name": "Accompagnateur_FormateurID_fk",
+      "id": 2
+    },
+    {
+      "startTableId": 6,
+      "startFieldId": 0,
+      "endTableId": 5,
+      "endFieldId": 2,
+      "cardinality": "One to one",
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "name": "CF Formation_id_fk",
+      "id": 3
+    },
+    {
+      "startTableId": 5,
+      "startFieldId": 2,
+      "endTableId": 6,
+      "endFieldId": 0,
+      "cardinality": "Many to one",
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "name": "Formateur_FormationID_fk",
+      "id": 4
+    },
+    {
+      "startTableId": 1,
+      "startFieldId": 0,
+      "endTableId": 5,
+      "endFieldId": 1,
+      "cardinality": "One to many",
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "name": "Coordinateur_CompteID_fk",
+      "id": 5
+    },
+    {
+      "startTableId": 5,
+      "startFieldId": 2,
+      "endTableId": 6,
+      "endFieldId": 0,
+      "cardinality": "One to one",
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "name": "Formateur_FormationID_fk",
+      "id": 6
+    },
+    {
+      "startTableId": 0,
+      "startFieldId": 0,
+      "endTableId": 5,
+      "endFieldId": 1,
+      "cardinality": "One to many",
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "name": "Compte_id_fk",
+      "id": 7
+    },
+    {
+      "startTableId": 5,
+      "startFieldId": 1,
+      "endTableId": 4,
+      "endFieldId": 0,
+      "cardinality": "One to many",
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "name": "Formateur_CompteID_fk",
+      "id": 8
+    },
+    {
+      "startTableId": 1,
+      "startFieldId": 0,
+      "endTableId": 4,
+      "endFieldId": 0,
+      "cardinality": "One to many",
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "name": "Coordinateur_CompteID_fk",
+      "id": 9
+    },
+    {
+      "startTableId": 2,
+      "startFieldId": 0,
+      "endTableId": 4,
+      "endFieldId": 0,
+      "cardinality": "One to many",
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action",
+      "name": "Accompagnateur_CompteID_fk",
+      "id": 10
+    }
+  ],
+  "notes": [],
+  "subjectAreas": [],
+  "types": []
+}

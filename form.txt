@@ -1,0 +1,966 @@
+-- phpMyAdmin SQL Dump
+-- version 4.7.9
+-- https://www.phpmyadmin.net/
+--
+-- Hôte : 127.0.0.1:3306
+-- Généré le :  mar. 16 avr. 2024 à 08:58
+-- Version du serveur :  5.7.21
+-- Version de PHP :  7.2.4
+
+SET FOREIGN_KEY_CHECKS=0;
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de données :  `gestionrh`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `ability`
+--
+
+DROP TABLE IF EXISTS `ability`;
+CREATE TABLE IF NOT EXISTS `ability` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `trainee` int(11) NOT NULL,
+  `skill` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `trainee` (`trainee`),
+  KEY `skill` (`skill`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `accompaniment`
+--
+
+DROP TABLE IF EXISTS `accompaniment`;
+CREATE TABLE IF NOT EXISTS `accompaniment` (
+  `account` int(11) NOT NULL,
+  `coach` int(11) NOT NULL,
+  PRIMARY KEY (`account`,`coach`),
+  KEY `fk_coach_accompaniment_idx` (`coach`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `accompaniment`
+--
+
+INSERT INTO `accompaniment` (`account`, `coach`) VALUES
+(7, 35),
+(8, 35),
+(14, 36),
+(17, 36),
+(19, 40),
+(21, 40),
+(22, 46),
+(24, 46),
+(27, 48),
+(32, 48);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `account`
+--
+
+DROP TABLE IF EXISTS `account`;
+CREATE TABLE IF NOT EXISTS `account` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `firstname` varchar(50) NOT NULL,
+  `lastname` varchar(50) NOT NULL,
+  `address` int(11) NOT NULL,
+  `role` int(11) NOT NULL,
+  `birthday` date NOT NULL,
+  `email` varchar(254) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_account` (`id`,`firstname`,`lastname`,`address`,`role`),
+  UNIQUE KEY `unique_password` (`email`,`password`),
+  KEY `fk_role_idx` (`role`),
+  KEY `fk_address_idx` (`address`)
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `account`
+--
+
+INSERT INTO `account` (`id`, `firstname`, `lastname`, `address`, `role`, `birthday`, `email`, `password`) VALUES
+(1, 'Eliès', 'Cannell', 1, 1, '1997-06-30', 'acannell0@amazon.de', 'lWIDG2'),
+(2, 'yan', 'nick', 2, 6, '2018-05-01', 'non@gmx.fr', 'pudding'),
+(4, 'Pélagie', 'Bach', 3, 1, '1997-01-16', 'cbach3@technorati.com', '35luoviAzUG'),
+(5, 'Maï', 'Warin', 4, 5, '1982-11-13', 'awarin4@shop-pro.jp', 'R06PW8iqZa'),
+(6, 'Cunégonde', 'Simonin', 5, 3, '1969-04-21', 'ksimonin5@nhs.uk', 'rWxKSoPh'),
+(7, 'Lén', 'O\'Dulchonta', 6, 2, '1986-12-24', 'modulchonta6@japanpost.jp', 'dLbTCi1Knh8J'),
+(8, 'Cinéma', 'Bodesson', 7, 2, '1985-01-20', 'ebodesson7@tmall.com', 'HOFlzjY'),
+(9, 'Pò', 'Hackwell', 8, 3, '1981-08-09', 'dhackwell8@wisc.edu', 'PDQBgNbh2QE'),
+(11, 'Léonore', 'Bodker', 9, 5, '1998-12-03', 'nbodkera@blogspot.com', 'GPVxRzDRGRfo'),
+(12, 'Björn', 'Blabey', 10, 3, '1971-09-02', 'eblabeyb@bloglines.com', '5UUJCCeEOj'),
+(13, 'blabli', 'truc', 10, 3, '2018-05-01', 'fsdfsdf@gfdgd', 'dgdfgdfgdf'),
+(14, 'Intéressant', 'De la Yglesia', 14, 2, '1993-03-24', 'cdelayglesia3@ca.gov', 'molestie'),
+(15, 'Loïs', 'Forcer', 15, 5, '1981-04-11', 'hforcer4@ihg.com', 'lectus'),
+(16, 'Cléopatre', 'MacMillan', 16, 1, '1983-12-01', 'mmacmillan5@slideshare.net', 'in'),
+(17, 'Bérengère', 'Quare', 17, 2, '1992-01-14', 'mquare6@bbb.org', 'augue'),
+(18, 'Rébecca', 'Gilleon', 18, 5, '1986-01-27', 'egilleon7@geocities.jp', 'sed'),
+(19, 'Pélagie', 'Lodwick', 19, 2, '1973-05-23', 'hlodwick8@amazon.co.jp', 'id'),
+(20, 'richard', 'steimer', 2, 4, '2010-02-02', 'oiu@free.fr', 'pouetpouet'),
+(21, 'Léa', 'Burt', 11, 2, '1977-04-02', 'bburt0@ycombinator.com', 'et'),
+(22, 'Régine', 'Spragg', 11, 2, '1979-01-10', 'cspragg0@shinystat.com', 'vBDz1rf2H'),
+(23, 'Torbjörn', 'Sealy', 13, 5, '1995-09-27', 'ssealy1@upenn.edu', 'I0mYfFsOq'),
+(24, 'Nélie', 'Wretham', 14, 2, '1972-06-20', 'ewretham2@purevolume.com', 'HdHt1aUe'),
+(25, 'Naëlle', 'Antognoni', 9, 4, '1998-12-27', 'cantognoni3@ustream.tv', 'pouetpouet'),
+(26, 'Maëlyss', 'Rabbatts', 18, 1, '1987-12-13', 'orabbatts4@nytimes.com', 'sjvCdZkl'),
+(27, 'Maëlla', 'Entwistle', 2, 2, '1986-09-08', 'aentwistle5@homestead.com', 'XDgd45'),
+(28, 'Mélia', 'Rawlin', 6, 4, '1976-02-23', 'lrawlin6@unc.edu', 'pouetpouet'),
+(29, 'Yè', 'Spinozzi', 1, 5, '1970-04-01', 'jspinozzi7@comcast.net', 'cRfTkkg0We'),
+(30, 'Ophélie', 'Padrick', 1, 1, '1970-12-04', 'bpadrick8@sogou.com', 'vWow2omwiP'),
+(31, 'Gwenaëlle', 'Tevelov', 9, 4, '1979-10-28', 'ktevelov9@1und1.de', 'pouetpouet'),
+(32, 'Aí', 'Mancktelow', 4, 2, '1996-02-19', 'emancktelowa@twitter.com', 'VgT2rg5Gf'),
+(33, 'Maëly', 'Dilliston', 8, 5, '1969-11-16', 'gdillistonb@economist.com', 'h1p1Re0'),
+(34, 'Mélissandre', 'Foakes', 14, 5, '1978-05-13', 'lfoakesc@tripadvisor.com', 'l8hFFO7'),
+(35, 'Léone', 'McKew', 15, 3, '1971-03-18', 'cmckewd@ucla.edu', 'XiuktVJXU'),
+(36, 'Jú', 'Gannicleff', 16, 3, '1991-04-12', 'egannicleffe@mapquest.com', 'vxtAROA'),
+(37, 'Aí', 'Quilter', 5, 7, '1984-02-29', 'rquilterf@geocities.com', 'pTKImbvmS5'),
+(38, 'Marie-thérèse', 'Tarry', 6, 1, '1992-06-04', 'dtarryg@telegraph.co.uk', 'MO51TMmFh'),
+(39, 'Marie-hélène', 'Knellen', 8, 7, '1995-11-01', 'eknellenh@addthis.com', 'Sx5FXsNxygQ'),
+(40, 'Håkan', 'Learmonth', 5, 3, '1984-05-30', 'jlearmonthi@cdc.gov', 'IlQwx5dQO4Me'),
+(41, 'Cloé', 'MacAllaster', 12, 1, '1997-09-20', 'jmacallasterj@miibeian.gov.cn', 'xOY3qfOd'),
+(42, 'Mégane', 'Budget', 5, 7, '1974-07-14', 'tbudgetk@google.co.jp', 'CLGn3W'),
+(43, 'Björn', 'Cordrey', 18, 5, '2000-03-09', 'qcordreyl@howstuffworks.com', 'U4XKlv0ZpwT'),
+(44, 'Océanne', 'Puncher', 1, 5, '1991-02-28', 'tpuncherm@photobucket.com', 'VuqIkONC'),
+(45, 'Åslög', 'Croster', 11, 1, '1991-04-28', 'bcrostern@mashable.com', 'tD2oY01Z7PX'),
+(46, 'Göran', 'Adamski', 19, 3, '1978-09-13', 'fadamskio@va.gov', '9Fu8cE'),
+(47, 'Michèle', 'Zotto', 4, 7, '1977-06-07', 'azottop@illinois.edu', 'rOd6jBWSPO8Y'),
+(48, 'Amélie', 'Stanway', 6, 3, '1995-01-30', 'kstanwayq@intel.com', 'nt501zVZEvVf'),
+(49, 'Dorothée', 'Dadge', 19, 7, '1997-07-25', 'ddadger@photobucket.com', 'l3Lqaw67vR'),
+(50, 'Jú', 'Roomes', 2, 1, '1992-04-27', 'froomess@com.com', 'xv2QnaQm'),
+(51, 'Stéphanie', 'Lissimore', 15, 3, '1982-11-07', 'clissimoret@devhub.com', 'S2FObknyFgP'),
+(52, 'charly', 'boy', 19, 4, '1945-02-02', 'war@free.fr', 'pouetpouet'),
+(53, 'Panda', 'Prosutto', 20, 6, '1932-03-21', 'ulossirrug-9588@yopmail.com', '@5A8@dtcA5%%ETtr5J8'),
+(54, 'Eleonore ', ' Perrenol', 9, 6, '1987-07-30', 'ykittopa-4384@yopmail.com', '93ax#S%7E'),
+(55, ' Mario ', 'Halkir', 16, 6, '1952-12-31', 'efekemmab-9970@yopmail.com', 'tQ3%3#tS9'),
+(56, 'Renato ', 'Merbare', 1, 6, '1999-03-22', 'nasavifah-4147@yopmail.com', 'a#92F#5Ym'),
+(57, 'Elsa ', 'Gontareor', 20, 6, '1964-03-15', 'hazokaffyg-9317@yopmail.com', '%k%4QwM82a#92F#5Ym'),
+(58, 'vaudoo', 'tada', 15, 6, '2008-05-01', 'non@vaudoobox.bwb', '93ax#S%7E');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `account_event`
+--
+
+DROP TABLE IF EXISTS `account_event`;
+CREATE TABLE IF NOT EXISTS `account_event` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `account` int(11) NOT NULL,
+  `event` int(11) NOT NULL,
+  `guest` int(11) NOT NULL,
+  `start` datetime NOT NULL,
+  `end` datetime NOT NULL,
+  `state` enum('0','1','2','3') NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `account` (`account`),
+  KEY `event` (`event`),
+  KEY `guest` (`guest`)
+) ENGINE=InnoDB AUTO_INCREMENT=138 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `account_event`
+--
+
+INSERT INTO `account_event` (`id`, `account`, `event`, `guest`, `start`, `end`, `state`) VALUES
+(1, 40, 1, 14, '2019-03-01 00:00:00', '2019-03-02 00:00:00', '0'),
+(2, 6, 2, 7, '2019-03-01 00:00:00', '2019-03-02 00:00:00', '0'),
+(3, 52, 3, 1, '2019-02-06 00:00:00', '2019-02-06 00:00:00', '0'),
+(4, 52, 3, 2, '2019-02-06 00:00:00', '2019-02-06 00:00:00', '0'),
+(5, 52, 3, 4, '2019-02-06 00:00:00', '2019-02-06 00:00:00', '1'),
+(6, 23, 5, 20, '2019-03-08 00:00:00', '2019-03-10 00:00:00', '0'),
+(7, 23, 4, 41, '2019-03-21 00:00:00', '2019-03-22 00:00:00', '0'),
+(108, 53, 15, 42, '2019-04-12 00:00:00', '2019-04-13 00:00:00', '0'),
+(109, 53, 13, 17, '2019-04-09 00:00:00', '2019-04-10 00:00:00', '0'),
+(110, 54, 5, 50, '2019-04-20 00:00:00', '2019-04-22 00:00:00', '0'),
+(111, 54, 10, 20, '2019-04-02 00:00:00', '2019-04-04 00:00:00', '1'),
+(112, 55, 9, 39, '2019-04-10 00:00:00', '2019-04-10 00:00:00', '0'),
+(113, 54, 12, 56, '2019-04-10 00:00:00', '2019-04-10 00:00:00', '2'),
+(114, 53, 13, 19, '2019-03-30 00:00:00', '2019-03-18 00:00:00', '0'),
+(115, 54, 6, 50, '2019-03-30 00:00:00', '2019-03-31 00:00:00', '2'),
+(116, 57, 12, 21, '2019-03-20 06:00:00', '2019-03-20 16:00:00', '1'),
+(117, 55, 9, 43, '2019-03-21 00:00:00', '2019-03-22 00:00:00', '0'),
+(118, 54, 21, 54, '2019-03-09 00:00:00', '2019-03-09 00:00:00', '1'),
+(119, 54, 22, 54, '2019-03-09 00:00:00', '2019-03-09 00:00:00', '1'),
+(120, 54, 23, 55, '2019-03-02 00:00:00', '2019-03-02 00:00:00', '1'),
+(121, 54, 25, 57, '2019-03-10 00:00:00', '2019-03-10 00:00:00', '2'),
+(122, 54, 26, 57, '2019-03-30 09:52:00', '2019-03-30 21:52:00', '1'),
+(123, 57, 27, 55, '2019-03-09 09:56:00', '2019-03-09 09:59:00', '0'),
+(124, 57, 28, 57, '2019-03-08 10:30:00', '2019-03-08 13:30:00', '1'),
+(125, 57, 29, 57, '2019-03-08 16:00:00', '2019-03-08 18:00:00', '1'),
+(126, 57, 30, 57, '2019-03-08 05:00:00', '2019-03-09 15:00:00', '1'),
+(127, 54, 31, 4, '2019-03-08 14:19:00', '2019-03-08 23:19:00', '0'),
+(128, 54, 32, 54, '2019-06-26 14:47:00', '2019-06-30 14:47:00', '1'),
+(129, 54, 33, 54, '2019-06-13 10:27:00', '2019-06-13 17:00:00', '1'),
+(130, 2, 34, 1, '2019-06-20 14:06:00', '2019-06-29 14:06:00', '0'),
+(131, 2, 34, 4, '2019-06-20 14:06:00', '2019-06-29 14:06:00', '0'),
+(132, 54, 35, 1, '2019-07-09 11:36:00', '2019-07-11 11:36:00', '0'),
+(133, 54, 36, 1, '2019-07-12 12:04:00', '2019-07-13 12:04:00', '0'),
+(134, 54, 36, 4, '2019-07-12 12:04:00', '2019-07-13 12:04:00', '0'),
+(135, 54, 36, 16, '2019-07-12 12:04:00', '2019-07-13 12:04:00', '0'),
+(136, 54, 37, 54, '2019-06-20 14:06:00', '2019-06-29 14:06:00', '1'),
+(137, 54, 38, 54, '2019-07-23 08:56:00', '2019-07-31 08:56:00', '1');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `address`
+--
+
+DROP TABLE IF EXISTS `address`;
+CREATE TABLE IF NOT EXISTS `address` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `street` varchar(45) NOT NULL,
+  `number` varchar(10) NOT NULL,
+  `type` int(11) NOT NULL,
+  `additional` varchar(128) DEFAULT NULL,
+  `zip_code` varchar(10) NOT NULL,
+  `city` varchar(45) NOT NULL,
+  `country` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_address_type_idx` (`type`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `address`
+--
+
+INSERT INTO `address` (`id`, `street`, `number`, `type`, `additional`, `zip_code`, `city`, `country`) VALUES
+(1, 'impasse qui craint', '66', 1, 'coupe gorge', '66666', 'destroy', 'farfaraway'),
+(2, 'Tomscot', '238', 3, 'Street', '517', 'Bukabu', 'Indonesia'),
+(3, 'Forest', '2323', 4, 'Junction', '50466', 'Shizikeng', 'China'),
+(4, 'Dwight', '0221', 2, 'Court', '91664', 'El Arenal', 'Mexico'),
+(5, 'Oak Valley', '2948', 5, 'Trail', '71770', 'Hoani', 'Comoros'),
+(6, 'Meadow Ridge', '24570', 6, 'Trail', 'P24', 'Kill', 'Ireland'),
+(7, 'Onsgard', '7617', 3, 'Crossing', '92933', 'Lazaro Cardenas', 'Mexico'),
+(8, 'Gulseth', '75928', 4, 'Junction', '55511', 'Tabunok', 'Philippines'),
+(9, 'Red Cloud', '20', 5, 'Hill', '140482', 'Rassvet', 'Russia'),
+(10, 'Eastlawn', '93', 3, 'Road', '87950', 'Comé', 'Benin'),
+(11, '2', '62', 4, 'Street', 'E91', 'Cluain Meala', 'Ireland'),
+(12, '8', '51', 2, 'Lane', '40510', 'Lexington', 'United States'),
+(13, 'Prairieview', '74', 4, 'Junction', '57256', 'Nagbukel', 'Philippines'),
+(14, 'Jay', '2', 5, 'Parkway', '57793', 'Banaba', 'Philippines'),
+(15, 'Del Sol', '91', 5, 'Crossing', '89145', 'Jingyao', 'China'),
+(16, 'Village', '33', 4, 'Point', '19353', 'Wuxia', 'China'),
+(17, 'Morningstar', '39', 2, 'Park', '93289', 'Qiaoshi', 'China'),
+(18, 'Upham', '8', 5, 'Park', '33781', 'Kebon', 'Indonesia'),
+(19, 'Armistice', '62', 5, 'Alley', '76508', 'Shimokizukuri', 'Japan'),
+(20, 'Prentice', '49', 2, 'Point', '40490', 'Smedjebacken', 'Sweden');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `administrator`
+--
+
+DROP TABLE IF EXISTS `administrator`;
+CREATE TABLE IF NOT EXISTS `administrator` (
+  `account` int(11) NOT NULL,
+  PRIMARY KEY (`account`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `administrator`
+--
+
+INSERT INTO `administrator` (`account`) VALUES
+(2),
+(53),
+(54),
+(55),
+(56),
+(57),
+(58);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `advertisement`
+--
+
+DROP TABLE IF EXISTS `advertisement`;
+CREATE TABLE IF NOT EXISTS `advertisement` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `emitter` int(11) NOT NULL,
+  `contract` int(11) NOT NULL,
+  `title` tinytext,
+  `description` longtext,
+  `date` date NOT NULL,
+  PRIMARY KEY (`id`,`emitter`),
+  KEY `fk_advertissement_company_idx` (`emitter`),
+  KEY `fk_advertissement_contract_idx` (`contract`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `advertisement`
+--
+
+INSERT INTO `advertisement` (`id`, `emitter`, `contract`, `title`, `description`, `date`) VALUES
+(1, 37, 1, 'naze', 'sqcqqsc', '2019-07-27'),
+(2, 37, 3, 'Full exploited', '', '1960-01-01');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `advertissement_interest`
+--
+
+DROP TABLE IF EXISTS `advertissement_interest`;
+CREATE TABLE IF NOT EXISTS `advertissement_interest` (
+  `advertissement` int(11) NOT NULL,
+  `account` int(11) NOT NULL,
+  `state` enum('1','2','3') DEFAULT NULL,
+  PRIMARY KEY (`advertissement`,`account`),
+  KEY `fk_account_advertissement_trainee_idx` (`account`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `attendance`
+--
+
+DROP TABLE IF EXISTS `attendance`;
+CREATE TABLE IF NOT EXISTS `attendance` (
+  `student` int(11) NOT NULL,
+  `date` date NOT NULL,
+  `am` tinyint(4) NOT NULL DEFAULT '0',
+  `pm` tinyint(4) NOT NULL DEFAULT '0',
+  `note` longtext,
+  PRIMARY KEY (`student`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `attendance`
+--
+
+INSERT INTO `attendance` (`student`, `date`, `am`, `pm`, `note`) VALUES
+(16, '2019-02-06', 1, 1, 'il a été absent');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `coach`
+--
+
+DROP TABLE IF EXISTS `coach`;
+CREATE TABLE IF NOT EXISTS `coach` (
+  `account` int(11) NOT NULL,
+  PRIMARY KEY (`account`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `coach`
+--
+
+INSERT INTO `coach` (`account`) VALUES
+(6),
+(9),
+(12),
+(13),
+(35),
+(36),
+(40),
+(46),
+(48),
+(51);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `communication`
+--
+
+DROP TABLE IF EXISTS `communication`;
+CREATE TABLE IF NOT EXISTS `communication` (
+  `message` int(11) NOT NULL,
+  `sender` int(11) NOT NULL,
+  `receiver` int(11) NOT NULL,
+  PRIMARY KEY (`message`,`sender`,`receiver`),
+  UNIQUE KEY `unique_sender` (`sender`,`message`),
+  KEY `fk_message_sender_idx` (`sender`),
+  KEY `fk_message_receivers_idx` (`receiver`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `communication`
+--
+
+INSERT INTO `communication` (`message`, `sender`, `receiver`) VALUES
+(1, 1, 23),
+(2, 25, 5),
+(3, 40, 19),
+(4, 40, 12);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `company`
+--
+
+DROP TABLE IF EXISTS `company`;
+CREATE TABLE IF NOT EXISTS `company` (
+  `account` int(11) NOT NULL,
+  `coach` int(11) NOT NULL,
+  PRIMARY KEY (`account`,`coach`),
+  KEY `fk_coach_company_idx` (`coach`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `company`
+--
+
+INSERT INTO `company` (`account`, `coach`) VALUES
+(37, 35),
+(39, 36),
+(42, 40),
+(49, 46),
+(47, 48);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `contract`
+--
+
+DROP TABLE IF EXISTS `contract`;
+CREATE TABLE IF NOT EXISTS `contract` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` tinytext,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `contract`
+--
+
+INSERT INTO `contract` (`id`, `title`) VALUES
+(1, 'CDD'),
+(2, 'CDI'),
+(3, 'Stage'),
+(4, 'CA');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `coordinator`
+--
+
+DROP TABLE IF EXISTS `coordinator`;
+CREATE TABLE IF NOT EXISTS `coordinator` (
+  `account` int(11) NOT NULL,
+  PRIMARY KEY (`account`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `coordinator`
+--
+
+INSERT INTO `coordinator` (`account`) VALUES
+(20),
+(25),
+(28),
+(31),
+(52);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `event`
+--
+
+DROP TABLE IF EXISTS `event`;
+CREATE TABLE IF NOT EXISTS `event` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` tinytext,
+  `description` longtext,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `event`
+--
+
+INSERT INTO `event` (`id`, `title`, `description`) VALUES
+(1, 'RDV info', 'rdv d\'info 1'),
+(2, 'RDV de suivi de formation', 'ceci est le deuxieme evenemets'),
+(3, 'meet\'up', 'convention PHP'),
+(4, 'Gala PHP et JS et autre', 'Ce gala est l\'une des meilleurs conventions du monde'),
+(5, 'Convention White Hat', 'Nous sommes des gentils personnes qui mettent leurs savoir en informatique au service du bien. Rejoignez le bon côté (nous avons des cookies).'),
+(6, 'Convention TypeScript', 'Le Web Mobile c\'est l\'avenir !'),
+(7, 'Salon Objets Connectés', 'Pour les passionnés de code et de domotique '),
+(8, 'Grande Réunion sur le Climat', 'En tant que développeur il est important de penser à l\'avenir '),
+(9, 'Hackathon', 'Venez vous amusez dans un evenement de la communaute de 48h ! Plein de lots a gagner'),
+(10, 'Rencontre InterScop', 'Rencontrer la scop ScopScop pour une journee d\'affrontement sportif et de bonne humeur'),
+(11, 'Viens', 'Cest un truc tres interessant ou il faut absolument venir'),
+(12, 'Reunion Migration PHP', 'Il faut apprendre a faire evoluer nos technos php'),
+(13, 'Soiree Cocktail Geek', 'Un apero tranquille plein de culture moderne'),
+(14, 'Atelier Futurama', 'Apprenez a vous servir des outils de modélisation 3D'),
+(15, 'Convention Solid\'Air', 'Comment pouvons-nous améliorer notre quotidien en améliorant celle des autres'),
+(16, 'C\'est mon événement', 'C\'est le premier'),
+(17, 'Une convention', 'C\'est une convention sur le code'),
+(18, 'Convention', 'Allons en convention'),
+(19, 'C\'est top', 'lalalalal'),
+(20, 'alalalla', 'qkbjljbh'),
+(21, 'alalalla', 'qkbjljbh'),
+(22, 'alalalla', 'qkbjljbh'),
+(23, 'T\'es invité !', 'Viens on va boire un verre '),
+(24, 'TEst', 'test test'),
+(25, 'Test', 'test'),
+(26, 'Un événement lalal', 'lalal'),
+(27, 'test', 'test'),
+(28, 'C\'est une petit test', 'alolzaidnkzej'),
+(29, 'UN AUTRE EVENT', 'C\'EST UN AUTRE EVENT'),
+(30, 'Encore un autre Event', 'Aujourd\'hui j\'invite quelqu\'un !'),
+(31, 'kc:bdjlkqn', 'oiqmdjclisjdkcnj,'),
+(32, 'tada', 'sqdsqd'),
+(33, 'Absences', 'Imad Cherbi -- Manuella Guérin (non-justifié)'),
+(34, '-èh_', 'hiojp'),
+(35, 'hiho', 'hvhggi'),
+(36, 'Absences', 'fbfbd'),
+(37, 'ytyhty', 'ythtyhtyhtyh'),
+(38, 'wcxcw', 'xwcwxcwxcwxc');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `expertise`
+--
+
+DROP TABLE IF EXISTS `expertise`;
+CREATE TABLE IF NOT EXISTS `expertise` (
+  `advertissement` int(11) NOT NULL,
+  `skill` int(11) NOT NULL,
+  PRIMARY KEY (`advertissement`,`skill`),
+  KEY `fk_expertise_skill_idx` (`skill`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `expertise`
+--
+
+INSERT INTO `expertise` (`advertissement`, `skill`) VALUES
+(1, 1),
+(2, 8);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `formation`
+--
+
+DROP TABLE IF EXISTS `formation`;
+CREATE TABLE IF NOT EXISTS `formation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` tinytext NOT NULL,
+  `description` longtext NOT NULL,
+  `start` date NOT NULL,
+  `end` date NOT NULL,
+  `volume` decimal(6,2) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `formation`
+--
+
+INSERT INTO `formation` (`id`, `title`, `description`, `start`, `end`, `volume`) VALUES
+(1, 'Services', 'primis in faucibus orci luctus et ultrices posuere cubilia curae duis faucibus accumsan', '2019-09-13', '2020-09-23', '750.00'),
+(2, 'Research and Development cgfg', 'cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus etiam vel augue vestibulum rutrum rutrum neque', '2019-05-19', '2020-09-05', '1600.00'),
+(3, 'Human Resources vb', 'augue vestibulum rutrum rutrum neque aenean auctor gravida sem praesent id massa id nisl venenatis lacinia aenean sit amet', '2019-06-23', '2020-12-19', '2000.00'),
+(4, 'Services', 'ullamcorper purus sit amet nulla quisque arcu libero rutrum ac lobortis vel dapibus at', '2019-08-04', '2020-07-29', '2100.00'),
+(5, 'Training', 'potenti in eleifend quam a odio in hac habitasse platea dictumst maecenas', '2019-05-19', '2020-05-21', '700.00'),
+(6, 'Legal', 'sem duis aliquam convallis nunc proin at turpis a pede posuere nonummy', '2019-07-26', '2019-04-11', '721.00'),
+(7, 'Marketing', 'aenean auctor gravida sem praesent id massa id nisl venenatis lacinia aenean', '2019-04-16', '2019-08-06', '460.00'),
+(8, 'Services', 'dolor sit amet consectetuer adipiscing elit proin risus praesent lectus vestibulum', '2019-07-23', '2019-05-30', '1400.00'),
+(9, 'Sales', 'luctus nec molestie sed justo pellentesque viverra pede ac diam cras pellentesque volutpat dui maecenas tristique est', '2019-08-15', '2020-01-10', '1800.00'),
+(10, 'Legal', 'curae donec pharetra magna vestibulum aliquet ultrices erat tortor sollicitudin mi sit amet lobortis sapien sapien', '2019-07-15', '2020-07-13', '1699.00');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `leave`
+--
+
+DROP TABLE IF EXISTS `leave`;
+CREATE TABLE IF NOT EXISTS `leave` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `account` int(11) NOT NULL,
+  `start` datetime NOT NULL,
+  `end` datetime NOT NULL,
+  `valid` tinyint(4) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_leave_salaried` (`account`)
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `leave`
+--
+
+INSERT INTO `leave` (`id`, `account`, `start`, `end`, `valid`) VALUES
+(1, 23, '2019-03-12 00:00:00', '2019-03-16 00:00:00', 0),
+(2, 15, '2019-03-24 00:00:00', '2019-03-30 00:00:00', 0),
+(3, 5, '2019-04-21 00:00:00', '2019-04-30 00:00:00', 0),
+(4, 6, '2019-03-19 00:00:00', '2019-03-23 00:00:00', 0),
+(5, 52, '2019-05-01 00:00:00', '2019-05-15 00:00:00', 2),
+(6, 12, '2019-07-28 00:00:00', '2019-09-06 00:00:00', 0),
+(49, 25, '2019-07-26 00:00:00', '2019-07-28 00:00:00', 0),
+(50, 28, '2019-06-05 00:00:00', '2019-06-06 00:00:00', 0),
+(51, 31, '2019-03-22 00:00:00', '2019-03-26 00:00:00', 0),
+(52, 40, '2019-12-18 00:00:00', '2020-01-02 00:00:00', 1),
+(53, 15, '2018-12-18 00:00:00', '2019-03-18 00:00:00', 0),
+(54, 33, '2019-05-14 00:00:00', '2019-03-16 00:00:00', 0),
+(55, 51, '2019-10-02 00:00:00', '2019-03-12 00:00:00', 2),
+(56, 20, '2019-11-26 00:00:00', '2019-11-28 00:00:00', 0),
+(57, 44, '2019-07-26 00:00:00', '2019-11-30 00:00:00', 1),
+(58, 13, '2019-04-01 00:00:00', '2019-04-04 00:00:00', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `message`
+--
+
+DROP TABLE IF EXISTS `message`;
+CREATE TABLE IF NOT EXISTS `message` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `subject` varchar(128) DEFAULT NULL,
+  `body` longtext,
+  `read` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `message`
+--
+
+INSERT INTO `message` (`id`, `subject`, `body`, `read`) VALUES
+(1, 'messge 1', 'ceci est le message 1', 0),
+(2, 'message non lu 2', 'message non lu 2', 0),
+(3, 'message 3', 'lmdskfhqpdslkfkqdsmlkfj', 0),
+(4, 'mssage 4', 'slkdmffjmdlkj', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `module`
+--
+
+DROP TABLE IF EXISTS `module`;
+CREATE TABLE IF NOT EXISTS `module` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` tinytext,
+  `description` longtext,
+  `formation` int(11) DEFAULT NULL,
+  `start` date DEFAULT NULL,
+  `end` date DEFAULT NULL,
+  `volume` decimal(6,2) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_formation_idx` (`formation`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `module`
+--
+
+INSERT INTO `module` (`id`, `title`, `description`, `formation`, `start`, `end`, `volume`) VALUES
+(1, 'sedtrfytguyihoij,', 'zerextrcytuvyb', 1, '2019-03-03', '2019-03-06', '21.00'),
+(2, 'module 2', 'module 2', 1, NULL, NULL, '14.00'),
+(3, 'module 3', 'module 3', 2, NULL, NULL, '35.00'),
+(4, 'module 5', 'module 5', 3, NULL, NULL, '21.00'),
+(5, 'module 6', 'module 6', 3, NULL, NULL, '14.00');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `role`
+--
+
+DROP TABLE IF EXISTS `role`;
+CREATE TABLE IF NOT EXISTS `role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `designation` tinytext NOT NULL,
+  `description` mediumtext NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `role`
+--
+
+INSERT INTO `role` (`id`, `designation`, `description`) VALUES
+(1, 'Stagiaire F', ''),
+(2, 'Stagiaire A', ''),
+(3, 'Accompagnateur', ''),
+(4, 'Coordinateur', ''),
+(5, 'Formateur', ''),
+(6, 'RH', ''),
+(7, 'Entreprise', '');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `salaried`
+--
+
+DROP TABLE IF EXISTS `salaried`;
+CREATE TABLE IF NOT EXISTS `salaried` (
+  `account` int(11) NOT NULL,
+  PRIMARY KEY (`account`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `salaried`
+--
+
+INSERT INTO `salaried` (`account`) VALUES
+(2),
+(5),
+(6),
+(9),
+(11),
+(12),
+(13),
+(15),
+(18),
+(20),
+(23),
+(25),
+(28),
+(29),
+(31),
+(33),
+(34),
+(35),
+(36),
+(40),
+(43),
+(44),
+(46),
+(48),
+(51),
+(52),
+(53),
+(54),
+(55),
+(56),
+(57),
+(58);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `skill`
+--
+
+DROP TABLE IF EXISTS `skill`;
+CREATE TABLE IF NOT EXISTS `skill` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `designation` tinytext NOT NULL,
+  `description` longtext,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `skill`
+--
+
+INSERT INTO `skill` (`id`, `designation`, `description`) VALUES
+(1, 'IBM Certified', 'Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.'),
+(2, 'Broadcast', 'Nullam varius. Nulla facilisi. Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.'),
+(3, 'Graphic Illustrations', 'Nam dui. Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.'),
+(4, 'LTE', 'Vivamus in felis eu sapien cursus vestibulum.'),
+(5, 'CVS', 'Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est. Phasellus sit amet erat.'),
+(6, 'Watercolor', 'Morbi porttitor lorem id ligula.'),
+(7, 'Physical Security', 'Vivamus vel nulla eget eros elementum pellentesque.'),
+(8, 'Business Intelligence Tools', 'Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero. Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.'),
+(9, 'Media TV', 'Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.'),
+(10, 'CGEIT', 'Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio. Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim.');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `student`
+--
+
+DROP TABLE IF EXISTS `student`;
+CREATE TABLE IF NOT EXISTS `student` (
+  `formation` int(11) NOT NULL,
+  `account` int(11) NOT NULL,
+  PRIMARY KEY (`formation`,`account`),
+  KEY `fk_formation_idx` (`formation`),
+  KEY `fk_student_trainee_idx` (`account`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `student`
+--
+
+INSERT INTO `student` (`formation`, `account`) VALUES
+(1, 1),
+(1, 2),
+(2, 4),
+(2, 26),
+(3, 30),
+(3, 38),
+(4, 41),
+(5, 45),
+(5, 50),
+(8, 16);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `trainee`
+--
+
+DROP TABLE IF EXISTS `trainee`;
+CREATE TABLE IF NOT EXISTS `trainee` (
+  `account` int(11) NOT NULL,
+  PRIMARY KEY (`account`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `trainee`
+--
+
+INSERT INTO `trainee` (`account`) VALUES
+(1),
+(2),
+(4),
+(7),
+(8),
+(14),
+(16),
+(17),
+(19),
+(21),
+(22),
+(24),
+(26),
+(27),
+(30),
+(32),
+(38),
+(41),
+(45),
+(50);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `trainer`
+--
+
+DROP TABLE IF EXISTS `trainer`;
+CREATE TABLE IF NOT EXISTS `trainer` (
+  `formation` int(11) NOT NULL,
+  `account` int(11) NOT NULL,
+  `coordinator` int(11) NOT NULL,
+  PRIMARY KEY (`formation`,`account`,`coordinator`),
+  KEY `fk_formation_idx` (`formation`),
+  KEY `fk_coordinator_trainer_idx` (`coordinator`),
+  KEY `fk_salaried_trainer_idx` (`account`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `trainer`
+--
+
+INSERT INTO `trainer` (`formation`, `account`, `coordinator`) VALUES
+(1, 23, 20),
+(2, 34, 20),
+(3, 29, 52),
+(4, 43, 52),
+(5, 44, 25),
+(6, 33, 25),
+(7, 5, 28),
+(8, 11, 28),
+(9, 15, 31),
+(10, 18, 31);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `type`
+--
+
+DROP TABLE IF EXISTS `type`;
+CREATE TABLE IF NOT EXISTS `type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `designation` tinytext,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `type`
+--
+
+INSERT INTO `type` (`id`, `designation`) VALUES
+(1, 'rue'),
+(2, 'avenue'),
+(3, 'Boulevard'),
+(4, 'Impasse'),
+(5, 'Ruelle');
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `ability`
+--
+ALTER TABLE `ability`
+  ADD CONSTRAINT `ability_ibfk_1` FOREIGN KEY (`trainee`) REFERENCES `trainee` (`account`),
+  ADD CONSTRAINT `ability_ibfk_2` FOREIGN KEY (`skill`) REFERENCES `skill` (`id`);
+
+--
+-- Contraintes pour la table `accompaniment`
+--
+ALTER TABLE `accompaniment`
+  ADD CONSTRAINT `fk_coach_accompaniment` FOREIGN KEY (`coach`) REFERENCES `coach` (`account`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_trainee_accompaniment` FOREIGN KEY (`account`) REFERENCES `trainee` (`account`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Contraintes pour la table `account`
+--
+ALTER TABLE `account`
+  ADD CONSTRAINT `fk_address` FOREIGN KEY (`address`) REFERENCES `address` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_role` FOREIGN KEY (`role`) REFERENCES `role` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Contraintes pour la table `account_event`
+--
+ALTER TABLE `account_event`
+  ADD CONSTRAINT `account_event_ibfk_1` FOREIGN KEY (`account`) REFERENCES `account` (`id`),
+  ADD CONSTRAINT `account_event_ibfk_2` FOREIGN KEY (`event`) REFERENCES `event` (`id`),
+  ADD CONSTRAINT `account_event_ibfk_3` FOREIGN KEY (`guest`) REFERENCES `account` (`id`);
+
+--
+-- Contraintes pour la table `administrator`
+--
+ALTER TABLE `administrator`
+  ADD CONSTRAINT `fk_administrator_salaried` FOREIGN KEY (`account`) REFERENCES `salaried` (`account`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+SET FOREIGN_KEY_CHECKS=1;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
